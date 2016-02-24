@@ -43,6 +43,11 @@ module OmniAuth
         end
 
         @user_id = ym_session.user_id
+        # @user_id should be blank, because `ym_session.authenticated?` should
+        # always have populated it if that method returns true.
+        fail! '@user_id should not be nil' if @user_id.nil?
+        fail! '@user_id should not be blank' if @user_id == ''
+
         @access_token = ym_session.to_s
 
         super
