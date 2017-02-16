@@ -23,7 +23,7 @@ module OmniAuth
         token_hash = session.createToken(:RetUrl => callback_url)
 
         # Pass the YourMembership session id to the Callback
-        request.params['ym_session'] = session.to_s
+        request.GET['ym_session'] = session.to_s
         # Redirect to token url
         redirect token_hash['GoToUrl']
       end
