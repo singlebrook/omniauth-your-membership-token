@@ -33,7 +33,7 @@ module OmniAuth
 
         ym_session_id = request.env['omniauth.params']['ym_session']
 
-        ym_session  = YourMembership::Session.new(ym_session_id, 100)
+        ym_session = YourMembership::Session.new(ym_session_id, 100)
 
         begin
           fail! 'Failed To Log In' unless ym_session.authenticated?
