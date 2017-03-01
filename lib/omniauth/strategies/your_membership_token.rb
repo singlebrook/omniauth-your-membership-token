@@ -17,15 +17,18 @@ module OmniAuth
         # the name of the class. This returns an uncapitalized url which Rails will not recognize as the same path as the
         # devise controller. This is a forced way to do this and probably has a more elegant solution.
         options.name = 'yourMembershipToken'
-        # Build an Access Token
-        session = YourMembership::Session.create
-        #binding.pry
-        token_hash = session.createToken(:RetUrl => callback_url)
 
-        # Pass the YourMembership session id to the Callback
-        request.GET['ym_session'] = session.to_s
-        # Redirect to token url
-        redirect token_hash['GoToUrl']
+        begin
+          # Build an Access Token
+          session = YourMembership::Session.create
+          token_hash = session.createToken(:RetUrl => callback_url)
+          # Pass the YourMembership session id to the Callback
+          request.GET['ym_session'] = session.to_s
+          # Redirect to token url
+          redirect token_hash['GoToUrl']
+        rescue SocketError => e
+          fail! e.message
+        end
       end
 
       def callback_phase

@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Breaking
+- In request phase, convert `SocketError` into an OmniAuth failure.
+  This allows for easier handling in application code. 
 
 ## [1.1.1] - 2017-02-16
 ### Breaking
